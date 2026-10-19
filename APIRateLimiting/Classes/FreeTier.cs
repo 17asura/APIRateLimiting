@@ -2,7 +2,7 @@ namespace APIRateLimiting;
 
 public class FreeTier : Subscription
 {
-    public FreeTier(Guid subscriptionid, string subscriptionname, int availableCredits ) : base(subscriptionid,subscriptionname,availableCredits){}
+    public FreeTier(Guid subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
 
     public override void TakeCredits(int credits)
     {
@@ -10,17 +10,17 @@ public class FreeTier : Subscription
         {
             if (AvailableCredits < credits)
             {
-                Console.WriteLine($"Recharge your credits! {AvailableCredits} credits left.");
+                Console.WriteLine($"Error: Recharge your credits! {AvailableCredits} credits left.");
             }
             else
             {
                 AvailableCredits -= credits;
-                Console.WriteLine($"Took {credits} credits, {AvailableCredits} credits left.");
+                Console.WriteLine($"Success: Took {credits} credits, {AvailableCredits} credits left.");
             }
         }
         else
         {
-            Console.WriteLine($"Error! Invalid credits, {AvailableCredits} credits left.");
+            Console.WriteLine($"Error: Invalid credits, {AvailableCredits} credits left.");
         }
 
     }
@@ -28,6 +28,6 @@ public class FreeTier : Subscription
     public override void RechargeCredits(int credits)
     {
         AvailableCredits += credits;
-        Console.WriteLine($"{AvailableCredits} credits left.");
+        Console.WriteLine($"Success: {AvailableCredits} credits left.");
     }
 }

@@ -5,11 +5,13 @@ public abstract class Subscription
     protected Guid SubscriptionId {get; set;}
     protected string SubscriptionName {get; set;}
     protected int AvailableCredits  {get; set;}
-    protected Subscription(Guid subscriptionId, string subscriptionName, int availableCredits)
+    protected string SubscriptionPassword {get; set;}
+    protected Subscription(Guid subscriptionId, string subscriptionName, int availableCredits, string subscriptionPassword)
     {
         SubscriptionId = subscriptionId;
         SubscriptionName = subscriptionName;
         AvailableCredits = availableCredits;
+        SubscriptionPassword = subscriptionPassword;
     }
 
     public abstract void TakeCredits(int credits);
