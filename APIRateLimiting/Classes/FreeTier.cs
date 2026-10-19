@@ -2,32 +2,48 @@ namespace APIRateLimiting;
 
 public class FreeTier : Subscription
 {
-    public FreeTier(Guid subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
+    public FreeTier(string subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
 
-    public override void TakeCredits(int credits)
+    public override void TakeCredits(string passTest, int credits)
     {
-        if (credits >= 0)
+        if (CheckPass(passTest))
         {
-            if (AvailableCredits < credits)
+            if (credits >= 0)
             {
-                Console.WriteLine($"Error: Recharge your credits! {AvailableCredits} credits left.");
+                if (AvailableCredits < credits)
+                {
+                    Console.WriteLine($"Error: Recharge your credits! {AvailableCredits} credits left.");
+                }
+                else
+                {
+                    AvailableCredits -= credits;
+                    Console.WriteLine($"Success: Took {credits} credits, {AvailableCredits} credits left.");
+                }
             }
             else
             {
-                AvailableCredits -= credits;
-                Console.WriteLine($"Success: Took {credits} credits, {AvailableCredits} credits left.");
+                Console.WriteLine($"Error: Invalid credits, {AvailableCredits} credits left.");
             }
         }
         else
         {
-            Console.WriteLine($"Error: Invalid credits, {AvailableCredits} credits left.");
+            Console.WriteLine("Error: Invalid Credentials");
         }
+
 
     }
 
-    public override void RechargeCredits(int credits)
+    public override void RechargeCredits(string passTest, int credits)
     {
-        AvailableCredits += credits;
-        Console.WriteLine($"Success: {AvailableCredits} credits left.");
+        if (CheckPass(passTest))
+        {
+            AvailableCredits += credits;
+            Console.WriteLine($"Success: {AvailableCredits} credits left.");
+        }
+        else
+        {
+            Console.WriteLine("Error: Invalid Credentials");
+        }
+        
     }
 }

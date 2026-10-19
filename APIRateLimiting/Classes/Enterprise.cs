@@ -2,30 +2,52 @@ namespace APIRateLimiting;
 
 public class Enterprise : Subscription
 {
-    public Enterprise(Guid subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
+    public Enterprise(string subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
 
-    public override void TakeCredits(int credits)
+    public override void TakeCredits(string passTest, int credits)
     {
-        if (AvailableCredits -  credits <= -500)
+        if (CheckPass(passTest))
         {
-            Console.WriteLine("Error: Please wait for the credits renewal or recharge them!");
+            if (AvailableCredits -  credits <= -500)
+            {
+                Console.WriteLine("Error: Please wait for the credits renewal or recharge them!");
+            }
+            else
+            {
+                AvailableCredits -= credits;
+                Console.WriteLine($"Success: Credits taken: {credits}\n New Available Credits: {AvailableCredits}");
+            }
         }
         else
         {
-            AvailableCredits -= credits;
-            Console.WriteLine($"Success: Credits taken: {credits}\n New Available Credits: {AvailableCredits}");
+            Console.WriteLine("Error: Invalid Credentials");
         }
     }
 
-    public override void RechargeCredits(int credits)
+    public override void RechargeCredits(string passTest, int credits)
     {
-        AvailableCredits += credits;
-        Console.WriteLine($"Success: Available Credits: {AvailableCredits}");
+        if (CheckPass(passTest))
+        {
+            AvailableCredits += credits;
+            Console.WriteLine($"Success: Available Credits: {AvailableCredits}");
+        }
+        else
+        {
+            Console.WriteLine("Error: Invalid Credentials");
+        }
+        
     }
 
-    public override void RechargeCredits()
+    public override void RechargeCredits(string passTest)
     {
-        AvailableCredits = 500;
-        Console.WriteLine($"Success: Available Credits: {AvailableCredits}");
+        if (CheckPass(passTest))
+        {
+            AvailableCredits = 500;
+            Console.WriteLine($"Success: Available Credits: {AvailableCredits}");
+        }
+        else
+        {
+            Console.WriteLine("Error: Invalid Credentials");
+        }
     }
 }
