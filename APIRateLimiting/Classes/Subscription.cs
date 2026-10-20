@@ -16,7 +16,26 @@ public abstract class Subscription
 
     public abstract void TakeCredits(string passTest, int credits);
     public virtual void RechargeCredits(string passTest) {} // "Virtual" instead of "Abstract", it's the same thing but lets you declare the same method with different variables
-    public virtual void RechargeCredits(string passTest, int credits) {}
+
+    public virtual void RechargeCredits(string passTest, int credits)
+    {
+        if (CheckPass(passTest))
+        {
+            if (credits > 0)
+            {
+                AvailableCredits += credits;
+                Console.WriteLine($"Success: Available Credits: {AvailableCredits}");
+            }
+            else
+            {
+                Console.WriteLine($"Error: Invalid credits, {AvailableCredits} credits left.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Error: Invalid Credentials");
+        }
+    }
 
     public bool CheckPass(string passTest)
     {
@@ -48,7 +67,7 @@ public abstract class Subscription
         }
         else
         {
-            Console.WriteLine($"Error: Invalid Credentials");
+            Console.WriteLine("Error: Invalid Credentials");
         }
     }
 
@@ -58,6 +77,6 @@ public abstract class Subscription
         {
             return SubscriptionName;
         }
-        return null;
+        return "Error: Invalid Credentials";
     }
 }

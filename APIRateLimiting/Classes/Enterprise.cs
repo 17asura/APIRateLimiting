@@ -8,34 +8,26 @@ public class Enterprise : Subscription
     {
         if (CheckPass(passTest))
         {
-            if (AvailableCredits -  credits < -500)
+            if (credits >= 0)
             {
-                Console.WriteLine("Error: Please wait for the credits renewal or recharge them!");
-            }
-            else
+                if (AvailableCredits - credits < -500)
+                {
+                    Console.WriteLine("Error: Please wait for the credits renewal or recharge them!");
+                }
+                else
+                {
+                    AvailableCredits -= credits;
+                    Console.WriteLine($"Success: Credits taken: {credits}\n New Available Credits: {AvailableCredits}");
+                }
+            }else
             {
-                AvailableCredits -= credits;
-                Console.WriteLine($"Success: Credits taken: {credits}\n New Available Credits: {AvailableCredits}");
+                Console.WriteLine($"Error: Invalid credits, {AvailableCredits} credits left.");
             }
         }
         else
         {
             Console.WriteLine("Error: Invalid Credentials");
         }
-    }
-
-    public override void RechargeCredits(string passTest, int credits)
-    {
-        if (CheckPass(passTest))
-        {
-            AvailableCredits += credits;
-            Console.WriteLine($"Success: Available Credits: {AvailableCredits}");
-        }
-        else
-        {
-            Console.WriteLine("Error: Invalid Credentials");
-        }
-        
     }
 
     public override void RechargeCredits(string passTest)

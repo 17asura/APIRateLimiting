@@ -32,18 +32,4 @@ public class FreeTier : Subscription
 
 
     }
-
-    public override void RechargeCredits(string passTest, int credits)
-    {
-        if (CheckPass(passTest))
-        {
-            AvailableCredits += credits;
-            Console.WriteLine($"Success: {AvailableCredits} credits left.");
-        }
-        else
-        {
-            Console.WriteLine("Error: Invalid Credentials");
-        }
-        
-    }
 }
