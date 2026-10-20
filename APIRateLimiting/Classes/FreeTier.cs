@@ -1,9 +1,9 @@
 namespace APIRateLimiting;
-
+//Free Tier SubClass
 public class FreeTier : Subscription
 {
     public FreeTier(string subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
-
+    //Custom TakeCredits Method (Only can have 0 credits)
     public override void TakeCredits(string passTest, int credits)
     {
         if (CheckPass(passTest))

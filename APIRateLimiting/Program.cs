@@ -22,6 +22,7 @@ while (true)
         int choice2 = int.Parse(Console.ReadLine());
         if (choice2 == 1)
         {
+            //If choice is Free Tier
             Guid id = Guid.NewGuid();
             string subsname = "FREE TIER";
             int availablecreds = 150;
@@ -39,6 +40,7 @@ while (true)
             }
         }else if (choice2 == 2)
         {
+            //If choice is ENTERPRISE
             Guid id = Guid.NewGuid();
             string subsname = "ENTERPRISE";
             int availablecreds = 500;
@@ -62,6 +64,7 @@ while (true)
         
     }else if (choice == 2)
     {
+        //Seeing Account Details
         Console.WriteLine("Account Id");
         string id = Console.ReadLine();
         Console.WriteLine("Account Password");
@@ -81,6 +84,7 @@ while (true)
         }
     }else if (choice == 3)
     {
+        //Take Credits
         Console.WriteLine("Account Id");
         string id = Console.ReadLine();
         Console.WriteLine("Account Password");
@@ -102,6 +106,7 @@ while (true)
         }
     }else if (choice == 4)
     {
+        //Recharge Credits
         Console.WriteLine("Account Id");
         string id = Console.ReadLine();
         Console.WriteLine("Account Password");
@@ -114,22 +119,26 @@ while (true)
                 count++;
                 if (Sub.TypeFinder(pass).CompareTo("FREE TIER") == 0)
                 {
+                    //Free Tier Option to Recharge Credits (only option)
                     Console.WriteLine($"A {Sub.TypeFinder(pass)} account was found.\n How many credits to recharge? ");
                     int creds = int.Parse(Console.ReadLine());
                     Sub.RechargeCredits(pass, creds);
                 }else if (Sub.TypeFinder(pass).CompareTo("ENTERPRISE") == 0)
                 {
+                    //ENTERPRISE Options to Recharge Credits (2 options)
                     Console.WriteLine($"A {Sub.TypeFinder(pass)} account was found.\n Do you want to recharge or renew your Subscription? ");
                     Console.WriteLine("[1] Custom Recharge");
                     Console.WriteLine("[2] Renew Subscription");
                     int chooserech = int.Parse(Console.ReadLine());
                     if (chooserech == 1)
                     {
+                        //Option 1 -> Custom Recharge
                         Console.WriteLine("How many credits to recharge? ");
                         int creds = int.Parse(Console.ReadLine());
                         Sub.RechargeCredits(pass, creds);
                     } else if (chooserech == 2)
                     {
+                        //Option 2 -> Subscription Renewal
                         Sub.RechargeCredits(pass);
                     }
                     else
@@ -141,6 +150,7 @@ while (true)
         }
         if (count == 0)
         {
+            //If no account is found with the ID provided
             Console.WriteLine("Error: No Account Found, Please try again!");
         }
     }

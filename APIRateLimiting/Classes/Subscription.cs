@@ -13,8 +13,9 @@ public abstract class Subscription
         AvailableCredits = availableCredits;
         SubscriptionPassword = subscriptionPassword;
     }
-
+    //Abstract method to remove credits
     public abstract void TakeCredits(string passTest, int credits);
+    //virtual methods to recharge the credits
     public virtual void RechargeCredits(string passTest) {} // "Virtual" instead of "Abstract", it's the same thing but lets you declare the same method with different variables
 
     public virtual void RechargeCredits(string passTest, int credits)
@@ -36,7 +37,7 @@ public abstract class Subscription
             Console.WriteLine("Error: Invalid Credentials");
         }
     }
-
+    //Helper method to check password input to the real one
     public bool CheckPass(string passTest)
     {
         if (passTest.CompareTo(SubscriptionPassword) == 0)
@@ -48,6 +49,7 @@ public abstract class Subscription
             return false;
         }
     }
+    //Helper method to check if the id exists
     public bool CheckId(string idTest)
     {
         if (idTest.CompareTo(SubscriptionId) == 0)
@@ -56,6 +58,7 @@ public abstract class Subscription
         }
         return false;
     }
+    //Method to return the account data if the "CheckPass" method is true
     public void ReturnAccountData(string passTest)
     {
         if (CheckPass(passTest) == true)
@@ -70,7 +73,7 @@ public abstract class Subscription
             Console.WriteLine("Error: Invalid Credentials");
         }
     }
-
+    //Method to know the Account Subscription Type
     public string TypeFinder(string passTest)
     {
         if (CheckPass(passTest))

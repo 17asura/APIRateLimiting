@@ -1,9 +1,9 @@
 namespace APIRateLimiting;
-
+//Enterprise SubClass
 public class Enterprise : Subscription
 {
     public Enterprise(string subscriptionid, string subscriptionname, int availableCredits, string subscriptionpassword ) : base(subscriptionid,subscriptionname,availableCredits,subscriptionpassword){}
-
+    //Custom TakeCredits Method (Can have -500 credits)
     public override void TakeCredits(string passTest, int credits)
     {
         if (CheckPass(passTest))
@@ -29,7 +29,7 @@ public class Enterprise : Subscription
             Console.WriteLine("Error: Invalid Credentials");
         }
     }
-
+    //Custom RechargeCredits Method for Subscription Renewal
     public override void RechargeCredits(string passTest)
     {
         if (CheckPass(passTest))
