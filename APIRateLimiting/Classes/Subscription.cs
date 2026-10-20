@@ -35,10 +35,7 @@ public abstract class Subscription
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
     public void ReturnAccountData(string passTest)
     {
@@ -53,5 +50,14 @@ public abstract class Subscription
         {
             Console.WriteLine($"Error: Invalid Credentials");
         }
+    }
+
+    public string TypeFinder(string passTest)
+    {
+        if (CheckPass(passTest))
+        {
+            return SubscriptionName;
+        }
+        return null;
     }
 }

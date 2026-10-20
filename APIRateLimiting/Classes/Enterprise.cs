@@ -8,7 +8,7 @@ public class Enterprise : Subscription
     {
         if (CheckPass(passTest))
         {
-            if (AvailableCredits -  credits <= -500)
+            if (AvailableCredits -  credits < -500)
             {
                 Console.WriteLine("Error: Please wait for the credits renewal or recharge them!");
             }

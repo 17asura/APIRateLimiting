@@ -66,13 +66,18 @@ while (true)
         string id = Console.ReadLine();
         Console.WriteLine("Account Password");
         string pass = Console.ReadLine();
+        int count = 0;
         foreach (Subscription Sub in SubscriptionList)
         {
-            if (Sub.CheckId(id) == true)
+            if (Sub.CheckId(id))
             {
                 Sub.ReturnAccountData(pass);
+                count++;
             }
-            
+        }
+        if (count == 0)
+        {
+            Console.WriteLine("Error: No Account Found, Please try again!");
         }
     }else if (choice == 3)
     {
@@ -80,13 +85,63 @@ while (true)
         string id = Console.ReadLine();
         Console.WriteLine("Account Password");
         string pass = Console.ReadLine();
+        Console.WriteLine("Credits Taken");
+        int creds = int.Parse(Console.ReadLine());
+        int count = 0;
         foreach (Subscription Sub in SubscriptionList)
         {
-            if (Sub.CheckId(id) == true)
+            if (Sub.CheckId(id))
             {
-                Sub.ReturnAccountData(pass);
+                Sub.TakeCredits(pass, creds);
+                count++;
             }
-            
+        }
+        if (count == 0)
+        {
+            Console.WriteLine("Error: No Account Found, Please try again!");
+        }
+    }else if (choice == 4)
+    {
+        Console.WriteLine("Account Id");
+        string id = Console.ReadLine();
+        Console.WriteLine("Account Password");
+        string pass = Console.ReadLine();
+        int count = 0;
+        foreach (Subscription Sub in SubscriptionList)
+        {
+            if (Sub.CheckId(id))
+            {
+                count++;
+                if (Sub.TypeFinder(pass).CompareTo("FREE TIER") == 0)
+                {
+                    Console.WriteLine($"A {Sub.TypeFinder(pass)} account was found.\n How many credits to recharge? ");
+                    int creds = int.Parse(Console.ReadLine());
+                    Sub.RechargeCredits(pass, creds);
+                }else if (Sub.TypeFinder(pass).CompareTo("ENTERPRISE") == 0)
+                {
+                    Console.WriteLine($"A {Sub.TypeFinder(pass)} account was found.\n Do you want to recharge or renew your Subscription? ");
+                    Console.WriteLine("[1] Custom Recharge");
+                    Console.WriteLine("[2] Renew Subscription");
+                    int chooserech = int.Parse(Console.ReadLine());
+                    if (chooserech == 1)
+                    {
+                        Console.WriteLine("How many credits to recharge? ");
+                        int creds = int.Parse(Console.ReadLine());
+                        Sub.RechargeCredits(pass, creds);
+                    } else if (chooserech == 2)
+                    {
+                        Sub.RechargeCredits(pass);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: Invalid Choice!");   
+                    }
+                }
+            }
+        }
+        if (count == 0)
+        {
+            Console.WriteLine("Error: No Account Found, Please try again!");
         }
     }
 
